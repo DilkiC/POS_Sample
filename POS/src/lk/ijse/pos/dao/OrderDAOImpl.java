@@ -12,10 +12,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class OrderDAOImpl {
+    public boolean addOrder(Orders orders) throws Exception {
+        Connection connection=DBConnection.getInstance().getConnection();
+        String sql = "INSERT INTO Orders VALUES (?,?,?)";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setObject(1, orders.getId());
+        pstm.setObject(2, orders.getDate());
+        pstm.setObject(3, orders.getCustomerId());
+        return  pstm.executeUpdate()>0;
 
 
+    }
 
-    public boolean deleteOrder(){
+   /* public boolean deleteOrder(){
 
     }
     public boolean updateOrder(){
@@ -26,6 +35,6 @@ public class OrderDAOImpl {
     }
     public ArrayList<Orders> getAllOrders(){
 
-    }
+    }*/
 
 }
