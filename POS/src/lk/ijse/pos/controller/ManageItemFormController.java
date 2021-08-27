@@ -16,21 +16,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
-import lk.ijse.pos.dao.CustomerDAOImpl;
-import lk.ijse.pos.dao.ItemDAOImpl;
-import lk.ijse.pos.db.DBConnection;
-import lk.ijse.pos.model.Customer;
+import lk.ijse.pos.dao.ItemDAO;
+import lk.ijse.pos.dao.impl.ItemDAOImpl;
 import lk.ijse.pos.model.Item;
-import lk.ijse.pos.view.tblmodel.CustomerTM;
 import lk.ijse.pos.view.tblmodel.ItemTM;
 
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -59,11 +52,13 @@ public class ManageItemFormController implements Initializable{
 
     private boolean addNew = true;
 
+    ItemDAO dao=new ItemDAOImpl();
+
     private void loadAllItems(){
 
         try {
             //get all
-            ItemDAOImpl dao=new ItemDAOImpl();
+            //ItemDAOImpl dao=new ItemDAOImpl();
             ArrayList<Item>all=dao.getAllItem();
             ArrayList<ItemTM>allTable=new ArrayList<>();
             for (Item item:all) {
@@ -150,7 +145,7 @@ public class ManageItemFormController implements Initializable{
             try {
 
                //add
-                ItemDAOImpl dao=new ItemDAOImpl();
+                //ItemDAOImpl dao=new ItemDAOImpl();
                 Item item=new Item(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
                boolean b= dao.addItem(item);
 
@@ -170,7 +165,7 @@ public class ManageItemFormController implements Initializable{
 
             try {
                 //update
-                ItemDAOImpl dao=new ItemDAOImpl();
+                //ItemDAOImpl dao=new ItemDAOImpl();
                 Item item=new Item(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
                 boolean b= dao.updateItem(item);
 
@@ -200,7 +195,7 @@ public class ManageItemFormController implements Initializable{
 
         try {
            //delete
-            ItemDAOImpl dao = new ItemDAOImpl();
+            //ItemDAOImpl dao = new ItemDAOImpl();
             boolean b = dao.deleteItem(code);
 
 
