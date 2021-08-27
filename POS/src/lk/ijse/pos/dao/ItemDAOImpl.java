@@ -84,4 +84,13 @@ public class ItemDAOImpl {
 
     }
 
+    public boolean updateItemQtyOnHand(String code,int qtyOnHand) throws Exception {
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET qtyOnHand=? WHERE code=?");
+        pstm.setObject(1, qtyOnHand);
+        pstm.setObject(2, code);
+        return (pstm.executeUpdate() > 0);
+    }
+
+
 }

@@ -75,7 +75,7 @@ public class ManageItemFormController implements Initializable{
 
             tblItems.setItems(olCustomers);
 
-            
+
 
 
 
@@ -172,7 +172,7 @@ public class ManageItemFormController implements Initializable{
                 //update
                 ItemDAOImpl dao=new ItemDAOImpl();
                 Item item=new Item(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
-                boolean b= dao.addItem(item);
+                boolean b= dao.updateItem(item);
 
 
 
