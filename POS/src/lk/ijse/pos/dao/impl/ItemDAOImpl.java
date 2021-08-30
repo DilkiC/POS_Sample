@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class ItemDAOImpl implements ItemDAO {
 
+    @Override
     public boolean addItem(Item item) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
 
@@ -27,7 +28,7 @@ public class ItemDAOImpl implements ItemDAO {
         return pstm.executeUpdate()>0;
     }
 
-
+    @Override
     public boolean updateItem(Item item) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
 
@@ -40,6 +41,7 @@ public class ItemDAOImpl implements ItemDAO {
         return pstm.executeUpdate()>0;
 
     }
+    @Override
     public boolean deleteItem(String id) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
 
@@ -50,6 +52,7 @@ public class ItemDAOImpl implements ItemDAO {
         return pstm.executeUpdate()>0;
 
     }
+    @Override
     public Item searchItem(String id) throws Exception {
         String sql = "select * from Item where code=?";
         Connection connection = DBConnection.getInstance().getConnection();
@@ -63,6 +66,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     }
 
+    @Override
     public ArrayList<Item> getAllItem() throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
 
@@ -85,6 +89,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     }
 
+    @Override
     public boolean updateItemQtyOnHand(String code,int qtyOnHand) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET qtyOnHand=? WHERE code=?");

@@ -11,6 +11,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class CustomerDAOImpl implements CustomerDAO {
+
+    @Override
     public boolean addCustomer(Customer customer) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
 
@@ -23,6 +25,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         return pstm.executeUpdate()>0;
 
     }
+    @Override
     public boolean updateCustomer(Customer customer) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
 
@@ -33,6 +36,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         return pstm.executeUpdate()>0;
 
     }
+    @Override
     public boolean deleteCustomer(String id) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
 
@@ -41,6 +45,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                 return pstm.executeUpdate()>0;
 
     }
+    @Override
     public Customer searchCustomer(String id) throws Exception {
         String sql = "select * from Customer where id=?";
         Connection connection = DBConnection.getInstance().getConnection();
@@ -53,6 +58,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         return null;
 
     }
+    @Override
     public ArrayList<Customer> getAllCustomer() throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
         Statement stm = connection.createStatement();
