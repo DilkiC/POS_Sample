@@ -76,38 +76,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     }
 
-   /* @Override
-    public boolean addItem(Item item) throws Exception {
 
-    }
-
-    @Override
-    public boolean updateItem(Item item) throws Exception {
-
-
-    }
-    @Override
-    public boolean deleteItem(String id) throws Exception {
-
-
-
-    }
-    @Override
-    public Item searchItem(String id) throws Exception {
-
-    }
-
-    @Override
-    public ArrayList<Item> getAllItem() throws Exception {
-
-    }
-
-    @Override
-    public boolean updateItemQtyOnHand(String code,int qtyOnHand) throws Exception {
-
-
-
-    }*/
 
 
 }

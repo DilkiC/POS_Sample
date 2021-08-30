@@ -35,10 +35,5 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         return null;
     }
 
-   /* @Override
-    public boolean addOrderDetails(OrderDetails orderDetails) throws Exception {
 
-
-
-    }*/
 }

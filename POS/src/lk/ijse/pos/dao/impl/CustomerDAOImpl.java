@@ -60,34 +60,6 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
 
-   /* @Override
-    public boolean addCustomer(Customer customer) throws Exception {
-
-
-
-
- }
-    @Override
-    public boolean updateCustomer(Customer customer) throws Exception {
-
-
-    }
-    @Override
-    public boolean deleteCustomer(String id) throws Exception {
-
-
-    }
-    @Override
-    public Customer searchCustomer(String id) throws Exception {
-
-
-    }
-    @Override
-    public ArrayList<Customer> getAllCustomer() throws Exception {
-
-    }*/
-
-    //..................................................
 
 
 
