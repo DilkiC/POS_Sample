@@ -1,5 +1,6 @@
 package lk.ijse.pos.dao.impl;
 
+import lk.ijse.pos.dao.CrudUtil;
 import lk.ijse.pos.dao.ItemDAO;
 import lk.ijse.pos.db.DBConnection;
 import lk.ijse.pos.model.Item;
@@ -16,49 +17,32 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean addItem(Item item) throws Exception {
-        Connection connection = DBConnection.getInstance().getConnection();
+        String sql="INSERT INTO Item VALUES (?,?,?,?)";
 
-        PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item VALUES (?,?,?,?)");
+        return CrudUtil.executeUpdate(sql,item.getCode(),item.getDescription(),item.getQtyOnHand(),item.getUnitPrice());
 
-        pstm.setObject(1, item.getCode());
-        pstm.setObject(2, item.getDescription());
-        pstm.setObject(3, item.getUnitPrice());
-        pstm.setObject(4, item.getQtyOnHand());
-
-        return pstm.executeUpdate()>0;
     }
 
     @Override
     public boolean updateItem(Item item) throws Exception {
-        Connection connection = DBConnection.getInstance().getConnection();
+        String sql="UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?";
+        return CrudUtil.executeUpdate(sql,item.getDescription(),item.getQtyOnHand(),item.getUnitPrice(),item.getCode());
 
-        PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
-
-        pstm.setObject(1, item.getDescription());
-        pstm.setObject(2,item.getUnitPrice());
-        pstm.setObject(3, item.getQtyOnHand());
-        pstm.setObject(4, item.getCode());
-        return pstm.executeUpdate()>0;
 
     }
     @Override
     public boolean deleteItem(String id) throws Exception {
-        Connection connection = DBConnection.getInstance().getConnection();
+        String sql="DELETE FROM Item WHERE code=?";
+        return CrudUtil.executeUpdate(sql,id);
 
-        PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
-
-        pstm.setObject(1, id);
-
-        return pstm.executeUpdate()>0;
 
     }
     @Override
     public Item searchItem(String id) throws Exception {
         String sql = "select * from Item where code=?";
-        Connection connection = DBConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setObject(1, id);
-        ResultSet rst = pstm.executeQuery();
+
+
+        ResultSet rst = CrudUtil.executeQuery(sql);
         if (rst.next()) {
             return new Item(rst.getString(1), rst.getString(2), rst.getBigDecimal(3), rst.getInt(4));
         }
@@ -68,11 +52,10 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public ArrayList<Item> getAllItem() throws Exception {
-        Connection connection = DBConnection.getInstance().getConnection();
+        String sql="SELECT * FROM Item";
 
-        Statement stm = connection.createStatement();
 
-        ResultSet rst = stm.executeQuery("SELECT * FROM Item");
+        ResultSet rst = CrudUtil.executeQuery(sql);
 
         ArrayList<Item> alItems = new ArrayList<>();
 
@@ -91,11 +74,11 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean updateItemQtyOnHand(String code,int qtyOnHand) throws Exception {
-        Connection connection = DBConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET qtyOnHand=? WHERE code=?");
-        pstm.setObject(1, qtyOnHand);
-        pstm.setObject(2, code);
-        return (pstm.executeUpdate() > 0);
+        String sql="UPDATE Item SET qtyOnHand=? WHERE code=?";
+        return CrudUtil.executeUpdate(sql,code,qtyOnHand);
+
+
+
     }
 
 
