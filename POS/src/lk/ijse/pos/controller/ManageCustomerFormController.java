@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
-import lk.ijse.pos.dao.CustomerDAO;
+import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.dao.impl.CustomerDAOImpl;
 import lk.ijse.pos.model.Customer;
 import lk.ijse.pos.view.tblmodel.CustomerTM;
@@ -54,8 +54,9 @@ public class ManageCustomerFormController implements Initializable {
 
         try {
 
+
             //CustomerDAOImpl dao=new CustomerDAOImpl();
-            ArrayList<Customer>all=dao.getAllCustomer();
+            ArrayList<Customer>all=dao.getAll();
             ArrayList<CustomerTM>allTable=new ArrayList<>();
             for (Customer customer:all) {
                 allTable.add(new CustomerTM(customer.getcID(),customer.getName(),customer.getAddress()) );
@@ -123,7 +124,7 @@ public class ManageCustomerFormController implements Initializable {
             try {
                 /*Delete operation*/
                 //CustomerDAOImpl customerDAO = new CustomerDAOImpl();
-                boolean b = dao.deleteCustomer(customerID);
+                boolean b = dao.delete(customerID);
 
 
 
@@ -162,7 +163,7 @@ public class ManageCustomerFormController implements Initializable {
 
             try {
                //CustomerDAOImpl dao=new CustomerDAOImpl();
-               boolean b=dao.addCustomer(new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
+               boolean b=dao.add(new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
 
 
 
@@ -179,7 +180,7 @@ public class ManageCustomerFormController implements Initializable {
             try {
                 //Update
                 //CustomerDAOImpl dao=new CustomerDAOImpl();
-                boolean b=dao.addCustomer(new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
+                boolean b=dao.update(new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
 
 
                 if (b) {
