@@ -1,5 +1,6 @@
-package lk.ijse.pos.bo;
+package lk.ijse.pos.dao.impl;
 
+import lk.ijse.pos.bo.custom.OrderBO;
 import lk.ijse.pos.controller.OrderFormController;
 import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.dao.custom.ItemDAO;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class OrderBOImpl {
+public class OrderBOImpl implements OrderBO {
     OrderDAO orderDAO=new OrderDAOImpl();
     CustomerDAO customerDAO=new CustomerDAOImpl();
     ItemDAO itemDAO=new ItemDAOImpl();
