@@ -18,10 +18,8 @@ import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.custom.CustomerBO;
-import lk.ijse.pos.bo.impl.CustomerBOImpl;
-import lk.ijse.pos.dao.DAOFactory;
-import lk.ijse.pos.dao.custom.CustomerDAO;
-import lk.ijse.pos.model.Customer;
+import lk.ijse.pos.dto.CustomerDTO;
+import lk.ijse.pos.entity.Customer;
 import lk.ijse.pos.view.tblmodel.CustomerTM;
 
 
@@ -60,9 +58,9 @@ public class ManageCustomerFormController implements Initializable {
 
 
             //CustomerDAOImpl dao=new CustomerDAOImpl();
-            ArrayList<Customer>all=customerBO.getAllCustomer();
+            ArrayList<CustomerDTO>all=customerBO.getAllCustomer();
             ArrayList<CustomerTM>allTable=new ArrayList<>();
-            for (Customer customer:all) {
+            for (CustomerDTO customer:all) {
                 allTable.add(new CustomerTM(customer.getcID(),customer.getName(),customer.getAddress()) );
 
             }
@@ -167,7 +165,7 @@ public class ManageCustomerFormController implements Initializable {
 
             try {
                //CustomerDAOImpl dao=new CustomerDAOImpl();
-               boolean b=customerBO.addCustomer(new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
+               boolean b=customerBO.addCustomer(new CustomerDTO(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
 
 
 
@@ -184,7 +182,7 @@ public class ManageCustomerFormController implements Initializable {
             try {
                 //Update
                 //CustomerDAOImpl dao=new CustomerDAOImpl();
-                boolean b=customerBO.updateCustomer(new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
+                boolean b=customerBO.updateCustomer(new CustomerDTO(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
 
 
                 if (b) {

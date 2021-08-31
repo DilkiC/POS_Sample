@@ -17,10 +17,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
 import lk.ijse.pos.bo.BOFactory;
-import lk.ijse.pos.bo.custom.CustomerBO;
 import lk.ijse.pos.bo.custom.ItemBO;
-import lk.ijse.pos.bo.impl.ItemBOImpl;
-import lk.ijse.pos.model.Item;
+import lk.ijse.pos.dto.ItemDTO;
+import lk.ijse.pos.entity.Item;
 import lk.ijse.pos.view.tblmodel.ItemTM;
 
 
@@ -62,9 +61,9 @@ public class ManageItemFormController implements Initializable{
         try {
             //get all
             //ItemDAOImpl dao=new ItemDAOImpl();
-            ArrayList<Item>all=bo.getAllItem();
+            ArrayList<ItemDTO>all=bo.getAllItem();
             ArrayList<ItemTM>allTable=new ArrayList<>();
-            for (Item item:all) {
+            for (ItemDTO item:all) {
                 allTable.add(new ItemTM(item.getCode(),item.getDescription(),item.getUnitPrice(),item.getQtyOnHand()) );
 
             }
@@ -149,7 +148,7 @@ public class ManageItemFormController implements Initializable{
 
                //add
                 //ItemDAOImpl dao=new ItemDAOImpl();
-                Item item=new Item(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
+                ItemDTO item=new ItemDTO(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
                boolean b= bo.addItem(item);
 
 
@@ -169,7 +168,7 @@ public class ManageItemFormController implements Initializable{
             try {
                 //update
                 //ItemDAOImpl dao=new ItemDAOImpl();
-                Item item=new Item(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
+                ItemDTO item=new ItemDTO(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
                 boolean b= bo.updateItem(item);
 
 

@@ -3,18 +3,15 @@ package lk.ijse.pos.bo.impl;
 import lk.ijse.pos.bo.custom.OrderBO;
 import lk.ijse.pos.controller.OrderFormController;
 import lk.ijse.pos.dao.DAOFactory;
-import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.dao.custom.OrderDAO;
 import lk.ijse.pos.dao.custom.OrderDetailDAO;
-import lk.ijse.pos.dao.impl.CustomerDAOImpl;
-import lk.ijse.pos.dao.impl.ItemDAOImpl;
-import lk.ijse.pos.dao.impl.OrderDAOImpl;
-import lk.ijse.pos.dao.impl.OrderDetailDAOImpl;
 import lk.ijse.pos.db.DBConnection;
-import lk.ijse.pos.model.Item;
-import lk.ijse.pos.model.OrderDetails;
-import lk.ijse.pos.model.Orders;
+import lk.ijse.pos.dto.OrderDetailsDTO;
+import lk.ijse.pos.dto.OrdersDTO;
+import lk.ijse.pos.entity.Item;
+import lk.ijse.pos.entity.OrderDetails;
+import lk.ijse.pos.entity.Orders;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -29,12 +26,14 @@ public class OrderBOImpl implements OrderBO {
 
     OrderDetailDAO orderDetailDAO=(OrderDetailDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDERDETAILS);
 
-    public boolean placeOrder(Orders order, ArrayList<OrderDetails> orderDetails) throws Exception {
+    public boolean placeOrder(OrdersDTO ordersDTO) throws Exception {
         Connection connection= DBConnection.getInstance().getConnection();
 
         try {
 
             connection.setAutoCommit(false);
+
+            Orders order=new Orders(ordersDTO.getId(),ordersDTO.getDate(),ordersDTO.getCustomerId());
 
             boolean b1 = orderDAO.add(order);
             if (!b1) {
@@ -42,8 +41,9 @@ public class OrderBOImpl implements OrderBO {
                 return false;
             }
 
-            for (OrderDetails orderDetail : orderDetails) {
-                boolean b2 = orderDetailDAO.add(orderDetail);
+            for (OrderDetailsDTO orderDetail : ordersDTO.getOrderDetails()) {
+                OrderDetails orderDetails=new OrderDetails(orderDetail.getOrderId(),orderDetail.getItemCode(),orderDetail.getQty(),orderDetail.getUnitPrice());
+                boolean b2 = orderDetailDAO.add(orderDetails);
                 if (!b2) {
                     connection.rollback();
                     return false;

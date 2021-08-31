@@ -24,13 +24,14 @@ import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.custom.CustomerBO;
 import lk.ijse.pos.bo.custom.ItemBO;
 import lk.ijse.pos.bo.custom.OrderBO;
-import lk.ijse.pos.bo.impl.CustomerBOImpl;
-import lk.ijse.pos.bo.impl.ItemBOImpl;
-import lk.ijse.pos.bo.impl.OrderBOImpl;
-import lk.ijse.pos.model.Customer;
-import lk.ijse.pos.model.Item;
-import lk.ijse.pos.model.OrderDetails;
-import lk.ijse.pos.model.Orders;
+import lk.ijse.pos.dto.CustomerDTO;
+import lk.ijse.pos.dto.ItemDTO;
+import lk.ijse.pos.dto.OrderDetailsDTO;
+import lk.ijse.pos.dto.OrdersDTO;
+import lk.ijse.pos.entity.Customer;
+import lk.ijse.pos.entity.Item;
+import lk.ijse.pos.entity.OrderDetails;
+import lk.ijse.pos.entity.Orders;
 import lk.ijse.pos.view.tblmodel.OrderDetailTM;
 
 
@@ -138,7 +139,7 @@ public class OrderFormController implements Initializable {
 
                 try {
 
-                    Customer customer=customerBO.searchCustomer(customerID);
+                    CustomerDTO customer=customerBO.searchCustomer(customerID);
 
                     if (customer!=null) {
 
@@ -173,7 +174,7 @@ public class OrderFormController implements Initializable {
                 try {
 
                     //ItemDAOImpl dao=new ItemDAOImpl();
-                    Item item=itemBO.searchItem(itemCode);
+                    ItemDTO item=itemBO.searchItem(itemCode);
 
 
                     if (item!=null) {
@@ -250,17 +251,17 @@ public class OrderFormController implements Initializable {
 
         try {
             //CustomerDAOImpl dao=new CustomerDAOImpl();
-            ArrayList<Customer> allCust=customerBO.getAllCustomer();
+            ArrayList<CustomerDTO> allCust=customerBO.getAllCustomer();
             cmbCustomerID.getItems().removeAll(cmbCustomerID.getItems());
-            for (Customer customer:allCust) {
+            for (CustomerDTO customer:allCust) {
                 String id=customer.getcID();
                 cmbCustomerID.getItems().add(id);
             }
 
             //ItemDAOImpl dao1=new ItemDAOImpl();
-            ArrayList<Item> allItems=itemBO.getAllItem();
+            ArrayList<ItemDTO> allItems=itemBO.getAllItem();
             cmbItemCode.getItems().removeAll(cmbItemCode.getItems());
-            for (Item item:allItems) {
+            for (ItemDTO item:allItems) {
                 String id=item.getCode();
                 cmbItemCode.getItems().add(id);
             }
@@ -338,20 +339,22 @@ public class OrderFormController implements Initializable {
 
         try {
             //add order............
-            Orders orders=new Orders(txtOrderID.getText(),parseDate(txtOrderDate.getEditor().getText()),cmbCustomerID.getValue());
+            OrdersDTO orders=new OrdersDTO(txtOrderID.getText(),parseDate(txtOrderDate.getEditor().getText()),cmbCustomerID.getValue());
 
-            ArrayList<OrderDetails>allOrderDetails=new ArrayList<>();
+            ArrayList<OrderDetailsDTO>allOrderDetails=new ArrayList<>();
             //add order details...
             for (OrderDetailTM orderDetail : olOrderDetails) {
                 //....
-                OrderDetails orderDetails=new OrderDetails(txtOrderID.getText(),orderDetail.getItemCode(),orderDetail.getQty(),new BigDecimal(orderDetail.getUnitPrice()));
+                OrderDetailsDTO orderDetailsDTO=new OrderDetailsDTO(txtOrderID.getText(),orderDetail.getItemCode(),orderDetail.getQty(),new BigDecimal(orderDetail.getUnitPrice()));
 
-                allOrderDetails.add(orderDetails);
+                allOrderDetails.add(orderDetailsDTO);
 
             }
 
-            boolean b=orderBO.placeOrder(orders,allOrderDetails);
-            if(b){
+            orders.setOrderDetails(allOrderDetails);
+
+           // boolean b=orderBO.placeOrder(orders,allOrderDetails);
+            if(orderBO.placeOrder(orders)){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Order Placed", ButtonType.OK);
                 alert.show();
 
