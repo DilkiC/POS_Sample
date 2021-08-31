@@ -1,7 +1,8 @@
-package lk.ijse.pos.dao.impl;
+package lk.ijse.pos.bo.impl;
 
 import lk.ijse.pos.bo.custom.OrderBO;
 import lk.ijse.pos.controller.OrderFormController;
+import lk.ijse.pos.dao.DAOFactory;
 import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.dao.custom.OrderDAO;
@@ -22,10 +23,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class OrderBOImpl implements OrderBO {
-    OrderDAO orderDAO=new OrderDAOImpl();
-    CustomerDAO customerDAO=new CustomerDAOImpl();
-    ItemDAO itemDAO=new ItemDAOImpl();
-    OrderDetailDAO orderDetailDAO=new OrderDetailDAOImpl();
+    OrderDAO orderDAO=(OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
+
+    ItemDAO itemDAO= (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
+
+    OrderDetailDAO orderDetailDAO=(OrderDetailDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDERDETAILS);
 
     public boolean placeOrder(Orders order, ArrayList<OrderDetails> orderDetails) throws Exception {
         Connection connection= DBConnection.getInstance().getConnection();

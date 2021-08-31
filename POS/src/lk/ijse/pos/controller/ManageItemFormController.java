@@ -17,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
 import lk.ijse.pos.bo.custom.ItemBO;
-import lk.ijse.pos.dao.impl.ItemBOImpl;
+import lk.ijse.pos.bo.impl.ItemBOImpl;
 import lk.ijse.pos.model.Item;
 import lk.ijse.pos.view.tblmodel.ItemTM;
 

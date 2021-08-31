@@ -1,14 +1,17 @@
-package lk.ijse.pos.dao.impl;
+package lk.ijse.pos.bo.impl;
 
 import lk.ijse.pos.bo.custom.CustomerBO;
+import lk.ijse.pos.dao.DAOFactory;
 import lk.ijse.pos.dao.custom.CustomerDAO;
+import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.dao.impl.CustomerDAOImpl;
 import lk.ijse.pos.model.Customer;
 
 import java.util.ArrayList;
 
 public class CustomerBOImpl implements CustomerBO {
-    CustomerDAO dao=new CustomerDAOImpl();
+    CustomerDAO dao= (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
+
 
     public boolean addCustomer(Customer customer) throws Exception {
         return dao.add(customer);
