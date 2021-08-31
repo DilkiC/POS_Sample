@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
+import lk.ijse.pos.bo.CustomerBOImpl;
 import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.dao.impl.CustomerDAOImpl;
 import lk.ijse.pos.model.Customer;
@@ -48,7 +49,8 @@ public class ManageCustomerFormController implements Initializable {
     @FXML
     private TableView<CustomerTM> tblCustomers;
 
-    CustomerDAO dao=new CustomerDAOImpl();
+    //CustomerDAO dao=new CustomerDAOImpl();
+    CustomerBOImpl customerBO=new CustomerBOImpl();
 
     private void loadAllCustomers() {
 
@@ -56,7 +58,7 @@ public class ManageCustomerFormController implements Initializable {
 
 
             //CustomerDAOImpl dao=new CustomerDAOImpl();
-            ArrayList<Customer>all=dao.getAll();
+            ArrayList<Customer>all=customerBO.getAllCustomer();
             ArrayList<CustomerTM>allTable=new ArrayList<>();
             for (Customer customer:all) {
                 allTable.add(new CustomerTM(customer.getcID(),customer.getName(),customer.getAddress()) );
@@ -124,7 +126,7 @@ public class ManageCustomerFormController implements Initializable {
             try {
                 /*Delete operation*/
                 //CustomerDAOImpl customerDAO = new CustomerDAOImpl();
-                boolean b = dao.delete(customerID);
+                boolean b = customerBO.deleteCustomer(customerID);
 
 
 
@@ -163,7 +165,7 @@ public class ManageCustomerFormController implements Initializable {
 
             try {
                //CustomerDAOImpl dao=new CustomerDAOImpl();
-               boolean b=dao.add(new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
+               boolean b=customerBO.addCustomer(new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
 
 
 
@@ -180,7 +182,7 @@ public class ManageCustomerFormController implements Initializable {
             try {
                 //Update
                 //CustomerDAOImpl dao=new CustomerDAOImpl();
-                boolean b=dao.update(new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
+                boolean b=customerBO.updateCustomer(new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText()));
 
 
                 if (b) {

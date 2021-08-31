@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
+import lk.ijse.pos.bo.ItemBOImpl;
 import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.dao.impl.ItemDAOImpl;
 import lk.ijse.pos.model.Item;
@@ -52,14 +53,14 @@ public class ManageItemFormController implements Initializable{
 
     private boolean addNew = true;
 
-    ItemDAO dao=new ItemDAOImpl();
+    ItemBOImpl bo=new ItemBOImpl();
 
     private void loadAllItems(){
 
         try {
             //get all
             //ItemDAOImpl dao=new ItemDAOImpl();
-            ArrayList<Item>all=dao.getAll();
+            ArrayList<Item>all=bo.getAllItem();
             ArrayList<ItemTM>allTable=new ArrayList<>();
             for (Item item:all) {
                 allTable.add(new ItemTM(item.getCode(),item.getDescription(),item.getUnitPrice(),item.getQtyOnHand()) );
@@ -147,7 +148,7 @@ public class ManageItemFormController implements Initializable{
                //add
                 //ItemDAOImpl dao=new ItemDAOImpl();
                 Item item=new Item(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
-               boolean b= dao.add(item);
+               boolean b= bo.addItem(item);
 
 
 
@@ -167,7 +168,7 @@ public class ManageItemFormController implements Initializable{
                 //update
                 //ItemDAOImpl dao=new ItemDAOImpl();
                 Item item=new Item(txtItemCode.getText(),txtDescription.getText(),new BigDecimal(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText()));
-                boolean b= dao.update(item);
+                boolean b= bo.updateItem(item);
 
 
 
@@ -196,7 +197,7 @@ public class ManageItemFormController implements Initializable{
         try {
            //delete
             //ItemDAOImpl dao = new ItemDAOImpl();
-            boolean b = dao.delete(code);
+            boolean b = bo.deleteItem(code);
 
 
 
