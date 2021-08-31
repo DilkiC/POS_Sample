@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.custom.CustomerBO;
 import lk.ijse.pos.bo.custom.ItemBO;
 import lk.ijse.pos.bo.custom.OrderBO;
@@ -87,9 +88,13 @@ public class OrderFormController implements Initializable {
 
     //private Connection connection;
 
-    OrderBO orderBO=new OrderBOImpl();
-    ItemBO itemBO=new ItemBOImpl();
-    CustomerBO customerBO=new CustomerBOImpl();
+    OrderBO orderBO= (OrderBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.ORDER);
+
+
+    CustomerBO customerBO= (CustomerBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CUSTOMER);
+
+    ItemBO itemBO= (ItemBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.ITEM);
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
